@@ -88,63 +88,65 @@ const Table: NextPage = () => {
         </button>
       </div>
 
-      <div className="flex w-ful flex-col border-t border-r border-l border-blue-200">
-        <div className="flex bg-blue-50 border-b border-blue-200">
-          <div className="p-3 min-w-[200px] flex-1" />
-          <div className="p-3 border-l border-blue-200 w-[150px]" />
-          {visibleMonths.map((month, index) => (
-            <TableItem
-              key={month.key}
-              item={month}
-              type="header"
-              isActive={index === 0}
-              isNext={index === 1}
-            />
-          ))}
-        </div>
-
-        {data.data.table.map((admin) => (
-          <div
-            key={`admin-${admin.id}`}
-            className="flex border-b border-blue-200"
-          >
-            <div className="p-3 min-w-[200px] flex-1 text-blue-900 font-semibold">
-              {admin.adminName}
-            </div>
-            <div className="border-l border-blue-200 w-[150px] text-gray-400">
-              <div className="p-3 border-b border-blue-200">Income</div>
-              <div className="p-3">Active Partners</div>
-            </div>
+      <div className="relative flex w-ful flex-col border-t border-r border-l border-blue-200 max-h-[1080px] overflow-hidden">
+        <div className="overflow-y-auto">
+          <div className="flex bg-blue-50 border-b border-blue-200 sticky top-0 z-10">
+            <div className="p-3 min-w-[200px] flex-1" />
+            <div className="p-3 border-l border-blue-200 w-[150px]" />
             {visibleMonths.map((month, index) => (
               <TableItem
                 key={month.key}
                 item={month}
+                type="header"
                 isActive={index === 0}
                 isNext={index === 1}
-                planIncome={
-                  data.data.total[
-                    month.monthIndex
-                  ]?.plan.income.toLocaleString() || '-'
-                }
-                planPartners={
-                  data.data.total[
-                    month.monthIndex
-                  ]?.plan.activePartners.toLocaleString() || '-'
-                }
-                factIncome={
-                  data.data.total[
-                    month.monthIndex
-                  ]?.fact.income.toLocaleString() || '-'
-                }
-                factPartners={
-                  data.data.total[
-                    month.monthIndex
-                  ]?.fact.activePartners.toLocaleString() || '-'
-                }
               />
             ))}
           </div>
-        ))}
+
+          {data.data.table.map((admin) => (
+            <div
+              key={`admin-${admin.id}`}
+              className="flex border-b border-blue-200"
+            >
+              <div className="p-3 min-w-[200px] flex-1 text-blue-900 font-semibold">
+                {admin.adminName}
+              </div>
+              <div className="border-l border-blue-200 w-[150px] text-gray-400">
+                <div className="p-3 border-b border-blue-200">Income</div>
+                <div className="p-3">Active Partners</div>
+              </div>
+              {visibleMonths.map((month, index) => (
+                <TableItem
+                  key={month.key}
+                  item={month}
+                  isActive={index === 0}
+                  isNext={index === 1}
+                  planIncome={
+                    data.data.total[
+                      month.monthIndex
+                    ]?.plan.income.toLocaleString() || '-'
+                  }
+                  planPartners={
+                    data.data.total[
+                      month.monthIndex
+                    ]?.plan.activePartners.toLocaleString() || '-'
+                  }
+                  factIncome={
+                    data.data.total[
+                      month.monthIndex
+                    ]?.fact.income.toLocaleString() || '-'
+                  }
+                  factPartners={
+                    data.data.total[
+                      month.monthIndex
+                    ]?.fact.activePartners.toLocaleString() || '-'
+                  }
+                />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
